@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* POST user login */
-router.post('/login', function(req, res, next) {
+router.post('/login', (req, res, next) => {
   res.send('respond with a resource');
 });
 
