@@ -5,7 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
-mongoose.connect("mongodb://mongodb:27017/edirect");
+mongoose.connect(
+  "mongodb://mongodb:27017/edirect",
+  {useNewUrlParser: true, useUnifiedTopology: true}
+);
 mongoose.connection.on("error", error => {
     console.log("Database connection error:", error);
 });
@@ -16,7 +19,6 @@ mongoose.connection.once("open", () => {
 var app = express();
 
 app.use(logger('dev'));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
