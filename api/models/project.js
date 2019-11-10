@@ -7,4 +7,4 @@ let Project = new Schema({
   todos: [{type: Schema.Types.ObjectId, ref: 'Todo'}],
 });
 
-module.exports = mongoose.model('projects', Project);
+module.exports = mongoose.model('Projects', Project);
