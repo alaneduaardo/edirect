@@ -3,6 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose'):
+
+mongoose.connect("mongodb://mongodb:27017/edirect");
+mongoose.connection.on("error", error => {
+    console.log("Database connection error:", error);
+});
+mongoose.connection.once("open", () => {
+    console.log("Connected to Database!");
+});
 
 var app = express();
 
