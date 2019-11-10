@@ -36,3 +36,6 @@ services:
         command: mongod --noauth --smallfiles
         networks:
             - edirect-network
+    networks:
+        edirect-network:
+            driver: bridge
