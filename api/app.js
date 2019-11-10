@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose'):
+var mongoose = require('mongoose');
 
 mongoose.connect("mongodb://mongodb:27017/edirect");
 mongoose.connection.on("error", error => {
@@ -30,20 +30,20 @@ app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 app.use('/projects/:projectId/todos', todosRouter);
 
-// catch 404 and forward to error handler
+// set error 404
 app.use(function(req, res, next) {
-  next(createError(404));
+  let statusCode = 404;
+  next({status:statusCode, ...createError(statusCode)});
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  let responseError = req.app.get('env') === 'development' ?
+    {"error":err} :
+    {"error":"Contact the system administrator"};
 
-  // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(responseError);
 });
 
 module.exports = app;

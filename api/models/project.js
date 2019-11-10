@@ -3,7 +3,7 @@ let uuid = require('node-uuid');
 
 let Project = new Schema({
   _id: { type: String, default: () => uuid.v1() }},
-  name: {type: String, required: true},
+  name: {type: String, required: [true, 'Name must to be valid']},
   todos: [{type: Schema.Types.ObjectId, ref: 'Todo'}],
 });
 

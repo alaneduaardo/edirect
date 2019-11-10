@@ -1,4 +1,4 @@
-FROM alpine:8.16.2
+FROM node:8.16.2-alpine
 
 WORKDIR /api
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . /api/
 
-EXPOSE 80
+EXPOSE 9000
 
 CMD ["npm", "start"]
