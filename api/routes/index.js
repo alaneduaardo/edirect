@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+/* GET app health check */
+router.get('/', (req, res, next) => {
+  res.send({"app":"Edirect Test API", "frontend":"React", "backend":"Express"});
 });
 
 module.exports = router;
