@@ -1,29 +1,23 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const ProjectModel = require('../models/project');
+const ProjectsController = require('../controllers/projects');
+
+const Projects = new ProjectsController(ProjectModel);
 
 /* GET projects listing. */
-router.get('/', (req, res, next) => {
-  res.send([]);
-});
+router.get('/', Projects.find);
 
 /* GET fetch one project by id */
-router.get('/:id', (req, res, next) => {
-  res.send({ id: req.param.id });
-});
+router.get('/:id', Projects.findOne);
 
 /* POST new project */
-router.post('/', (req, res, next) => {
-  res.send({});
-});
+router.post('/', Projects.new);
 
 /* PUT edit project */
-router.put('/:id', (req, res, next) => {
-  res.send({ id: req.param.id });
-});
+router.put('/:id', Projects.update);
 
 /* DELETE project by id. */
-router.delete('/:id', (req, res, next) => {
-  res.send({ id: req.param.id });
-});
+router.delete('/:id',Projects.delete);
 
 module.exports = router;
