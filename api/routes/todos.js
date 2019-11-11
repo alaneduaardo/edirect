@@ -1,24 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const ProjectModel = require('../models/project');
+const TodoModel = require('../models/todo');
+const TodosController = require('../controllers/todos');
 
-/* GET todos listing. */
-router.get('/', (req, res, next) => {
-  res.send([]);
-});
+const Todos = new TodosController(TodoModel, ProjectModel);
 
 /* POST new todo */
-router.post('/', (req, res, next) => {
-  res.send({});
-});
+router.post('/', Todos.new);
 
 /* PUT edit todo */
-router.put('/:id', (req, res, next) => {
-  res.send({ id: req.param.id });
-});
+router.put('/:id', Todos.update);
 
 /* DELETE todo by id. */
-router.delete('/:id', (req, res, next) => {
-  res.send({ id: req.param.id });
-});
+router.delete('/:id',Todos.delete);
 
 module.exports = router;
