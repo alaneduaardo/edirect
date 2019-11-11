@@ -1,18 +1,19 @@
 version: '3'
 
 services:
-    client:
-        build: ./public
-        restart: always
-        ports:
-            - '3000:3000'
-        volumes:
-            - './public:/public'
-            - /public/node_modules
-        links:
-            - api
-        networks:
-          - edirect-network
+    # client:
+    #     build: ./public
+    #     restart: always
+    #     ports:
+    #         - '3000:3000'
+    #     volumes:
+    #         - './public:/public'
+    #         - /public/node_modules
+    #     working_dir: /public
+    #     links:
+    #         - api
+    #     networks:
+    #       - edirect-network
     api:
         build: ./api
         restart: always
@@ -27,13 +28,12 @@ services:
           - edirect-network
     mongodb:
         image: mongo
-        restart: always
         container_name: edirect-db
         volumes:
             - './data:/data/db'
         ports:
             - '27017:27017'
-        command: 'mongod --noauth --smallfiles'
+        command: 'mongod --noauth'
         networks:
             - edirect-network
 networks:
