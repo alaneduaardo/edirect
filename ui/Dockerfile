@@ -1,12 +1,12 @@
-FROM alpine:8.16.2
+FROM node:13.1-alpine
 
-WORKDIR /public
+WORKDIR /ui
 
-COPY package*.json /public/
+COPY package*.json /ui/
 
 RUN npm install
 
-COPY . /public/
+COPY . /ui/
 
 EXPOSE 3000
 

@@ -1,19 +1,19 @@
 version: '3'
 
 services:
-    # client:
-    #     build: ./public
-    #     restart: always
-    #     ports:
-    #         - '3000:3000'
-    #     volumes:
-    #         - './public:/public'
-    #         - /public/node_modules
-    #     working_dir: /public
-    #     links:
-    #         - api
-    #     networks:
-    #       - edirect-network
+    client:
+        build: ./ui
+        restart: always
+        ports:
+            - '3000:3000'
+        volumes:
+            - './ui:/ui'
+            - /ui/node_modules
+        working_dir: /ui
+        links:
+            - api
+        networks:
+          - edirect-network
     api:
         build: ./api
         restart: always
