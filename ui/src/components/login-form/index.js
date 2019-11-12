@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import "./login.css";
 
-class Login extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -74,4 +74,4 @@ class Login extends React.Component {
   }
 };
 
-export default withRouter(Login);
+export default withRouter(LoginForm);

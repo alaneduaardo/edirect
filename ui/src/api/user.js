@@ -17,8 +17,7 @@ export default {
     return fetch(`${constants.API_URL_BASE}/user/logout`, {
           method: 'GET'
         }).then((err, res) => {
-          if(err.status !== 200) throw new Error(res.data.error.message);
-          res.json()
+          if(err.status !== 200) throw new Error(res.statusText);
         });
   }
 };

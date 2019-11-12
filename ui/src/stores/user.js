@@ -9,6 +9,12 @@ class UserStore {
       this.loggedUser = data;
     }));
   }
+
+  logout() {
+    return userApi.logout().then(action(() => {
+      this.loggedUser = {};
+    }));
+  }
 }
 
 export default new UserStore();

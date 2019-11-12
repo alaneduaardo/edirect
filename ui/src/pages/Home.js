@@ -1,11 +1,11 @@
 import React from 'react';
 import LoginForm from '../components/login-form';
-import stores from '../stores';
+import userStore from '../stores/user';
 
 export default function() {
   return (
     <div className="Home">
-      <LoginForm store={stores.userStore} />
+      <LoginForm store={userStore} />
     </div>
   );
 }
