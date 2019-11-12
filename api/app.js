@@ -16,6 +16,12 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(cors({
+  methods:['GET, POST, PUT, DELETE'],
+  origin: ['http://localhost:3000'],
+  credentials: true
+}));
+
 app.param('projectId', function (req, res, next, projectId) {
   const { ProjectModel } = require('./models');
 
