@@ -7,8 +7,8 @@ module.exports = function(ProjectModel) {
 
       res.send(data);
     })
-    .populate('todos')
-    .populate('users');
+    .populate('Todo')
+    .populate('User');
   }
 
   this.findOne = (req, res, next) => {
@@ -17,8 +17,8 @@ module.exports = function(ProjectModel) {
 
       res.send(data);
     })
-    .populate('todos')
-    .populate('users');
+    .populate('Todo')
+    .populate('User');
   }
 
   this.new = (req, res, next) => {
