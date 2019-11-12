@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
   secret: 'edirect secret',
-  resave: true,
+  resave: false,
   saveUninitialized: true
 }));
 app.use(cors({

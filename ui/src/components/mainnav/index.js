@@ -12,7 +12,7 @@ class MainNav extends React.Component {
   }
 
   handleClick() {
-    this.props.store.logout().then(() => {
+    this.props.userStore.logout().then(() => {
       this.props.history.push('/');
     })
   }
@@ -24,7 +24,7 @@ class MainNav extends React.Component {
           <Navbar.Brand href="/projects">EDirect</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <NavDropdown title={this.props.store.loggedUser.name} id="collasible-nav-dropdown">
+            <NavDropdown title={this.props.userStore.loggedUser.name} id="collasible-nav-dropdown">
               <NavDropdown.Item onClick={this.handleClick}>Logout</NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>

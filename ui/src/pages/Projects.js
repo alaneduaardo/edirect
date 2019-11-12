@@ -1,6 +1,7 @@
 import React from 'react';
 import MainNav from '../components/mainnav';
 import userStore from '../stores/user';
+import ProjectList from '../components/project-list';
 import { inject, observer } from "mobx-react";
 
 class ProjectsPage extends React.Component {
@@ -15,12 +16,13 @@ class ProjectsPage extends React.Component {
   render() {
     return (
       <div className="Projects">
-        <MainNav store={userStore}/>
+        <MainNav />
+        <ProjectList list={this.props.projectStore.projects}/>
       </div>
     );
   }
 }
 
-export default inject("userStore")(
+export default inject("userStore", "projectStore")(
   observer(ProjectsPage)
 );

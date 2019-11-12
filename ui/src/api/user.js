@@ -1,22 +1,17 @@
+import axios from "axios";
 import constants from '../constants';
 
 export default {
   login: (username, password) => {
     let params = new URLSearchParams({ username, password }).toString();
 
-    return fetch(`${constants.API_URL_BASE}/user/login`, {
-          method: 'POST',
-          headers: {'Content-Type': constants.API_DEFAULT_CONTENT_TYPE},
-          body: params
-        }).then(res => {
+    return axios.post(`${constants.API_URL_BASE}/user/login`, { username, password }).then(res => {
           if(res.status !== 200) throw new Error(res.statusText);
-          return res.json()
+          return res.data
         });
   },
   logout: () => {
-    return fetch(`${constants.API_URL_BASE}/user/logout`, {
-          method: 'GET'
-        }).then((err, res) => {
+    return axios.get(`${constants.API_URL_BASE}/user/logout`).then((err, res) => {
           if(err.status !== 200) throw new Error(res.statusText);
         });
   }
