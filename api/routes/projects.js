@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const ProjectModel = require('../models/project');
-const ProjectsController = require('../controllers/projects');
+const { ProjectModel } = require('../models');
+const { ProjectsController } = require('../controllers');
+const AuthService = require('../services/auth');
 
-const Projects = new ProjectsController(ProjectModel);
+const Projects = new ProjectsController(ProjectModel),
+      Auth = new AuthService();
+
+router.use(Auth.verify);
 
 /* GET projects listing. */
 router.get('/', Projects.find);

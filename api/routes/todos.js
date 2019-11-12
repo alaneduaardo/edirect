@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const ProjectModel = require('../models/project');
-const TodoModel = require('../models/todo');
-const TodosController = require('../controllers/todos');
+const { TodoModel, ProjectModel } = require('../models');
+const { TodosController } = require('../controllers');
+const AuthService = require('../services/auth');
 
-const Todos = new TodosController(TodoModel, ProjectModel);
+const Todos = new TodosController(TodoModel, ProjectModel),
+      Auth = new AuthService();
+
+router.use(Auth.verify);
 
 /* POST new todo */
 router.post('/', Todos.new);
