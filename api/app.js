@@ -1,36 +1,36 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var mongoose = require('mongoose');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
 
-mongoose.connect(
-  "mongodb://mongodb:27017/edirect",
-  {useNewUrlParser: true, useUnifiedTopology: true}
-);
-mongoose.connection.on("error", error => {
-    console.log("Database connection error:", error);
-});
-mongoose.connection.once("open", () => {
-    console.log("Connected to Database!");
-});
-
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(session({
+  secret: 'edirect secret',
+  resave: true,
+  saveUninitialized: true
+}));
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var projectsRouter = require('./routes/projects');
-var todosRouter = require('./routes/todos');
+app.param('projectId', function (req, res, next, projectId) {
+  const { ProjectModel } = require('./models');
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/projects', projectsRouter);
-app.use('/projects/:projectId/todos', todosRouter);
+  ProjectModel.findOne({_id: projectId}, (err, project) => {
+    req.project = project;
+    next();
+  });
+});
+
+const { MainRouter, UserRouter, ProjectRouter, TodoRouter } = require('./routes');
+
+app.use('/', MainRouter);
+app.use('/user', UserRouter);
+app.use('/project', ProjectRouter);
+app.use('/project/:projectId/todo', TodoRouter);
 
 // set error 404
 app.use(function(req, res, next) {
