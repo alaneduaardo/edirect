@@ -2,11 +2,13 @@ module.exports = function(ProjectModel) {
   const model = ProjectModel;
 
   this.find = (req, res, next) => {
-    model.find({}, (err, data) => {
+    model.find({ user: req.session.user._id }, (err, data) => {
       if(err) return next(err);
 
       res.send(data);
-    }).populate('todos');
+    })
+    .populate('todos')
+    .populate('users');
   }
 
   this.findOne = (req, res, next) => {
@@ -14,11 +16,13 @@ module.exports = function(ProjectModel) {
       if(err) return next(err);
 
       res.send(data);
-    }).populate('todos');
+    })
+    .populate('todos')
+    .populate('users');
   }
 
   this.new = (req, res, next) => {
-    let project = new model(req.body);
+    let project = new model({ ...req.body, user: req.session.user._id });
 
     project.save((err, data) => {
       if(err) return next({...err,requestBody:req.body});

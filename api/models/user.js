@@ -41,5 +41,5 @@ User.pre('save', function (next) {
   next();
 });
 
-const UserModel = mongoose.model('users', User)
+const UserModel = mongoose.model('User', User)
 module.exports = UserModel;
