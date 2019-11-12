@@ -5,9 +5,9 @@ class UserStore {
   loggedUser = {};
 
   login(username, password) {
-    return userApi.login(username, password).then(action(data => {
+    return userApi.login(username, password).then(data => {
       this.loggedUser = data;
-    }));
+    });
   }
 
   logout() {

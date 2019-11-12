@@ -23,7 +23,7 @@ class MainNav extends React.Component {
           <Navbar.Brand href="#home">EDirect</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <NavDropdown title="Username" id="collasible-nav-dropdown">
+            <NavDropdown title={this.props.store.loggedUser.name} id="collasible-nav-dropdown">
               <NavDropdown.Item onClick={this.handleClick}>Logout</NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>

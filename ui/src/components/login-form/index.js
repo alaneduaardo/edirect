@@ -65,7 +65,7 @@ class LoginForm extends React.Component {
             {this.state.errorMsg}
           </Form.Text>
 
-          <Button block bsSize="large" variant="secondary" disabled={!this.validateForm()} type="submit">
+          <Button block bssize="large" variant="secondary" disabled={!this.validateForm()} type="submit">
             Login
           </Button>
         </Form>
