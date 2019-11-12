@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { withRouter } from 'react-router-dom';
+import { inject, observer } from "mobx-react";
 
 class MainNav extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class MainNav extends React.Component {
     return (
       <div className="MainNav">
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">EDirect</Navbar.Brand>
+          <Navbar.Brand href="/projects">EDirect</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <NavDropdown title={this.props.store.loggedUser.name} id="collasible-nav-dropdown">
@@ -33,4 +34,8 @@ class MainNav extends React.Component {
   }
 }
 
-export default withRouter(MainNav);
+export default inject("userStore")(
+  observer(
+    withRouter(MainNav)
+  )
+);

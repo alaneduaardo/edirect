@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
+import { inject, observer } from "mobx-react";
 import "./login.css";
 
 class LoginForm extends React.Component {
@@ -24,7 +25,7 @@ class LoginForm extends React.Component {
     event.preventDefault();
     let { username, password } = this.state;
 
-    this.props.store.login(username, password).then((response) => {
+    this.props.userStore.login(username, password).then((response) => {
       this.props.history.push('/projects');
     })
     .catch((err) => {
@@ -73,5 +74,8 @@ class LoginForm extends React.Component {
     );
   }
 };
-
-export default withRouter(LoginForm);
+export default inject("userStore")(
+  observer(
+    withRouter(LoginForm)
+  )
+);

@@ -1,11 +1,25 @@
 import React from 'react';
 import LoginForm from '../components/login-form';
-import userStore from '../stores/user';
+import { inject, observer } from "mobx-react";
 
-export default function() {
-  return (
-    <div className="Home">
-      <LoginForm store={userStore} />
-    </div>
-  );
+class HomePage extends React.Component {
+  componentWillMount() {
+    let { loggedUser } = this.props.userStore;
+
+    if(loggedUser != null && loggedUser.id != null) {
+      this.props.history.push('/projects');
+    }
+  }
+
+  render() {
+    return (
+      <div className="Home">
+        <LoginForm />
+      </div>
+    );
+  }
 }
+
+export default inject("userStore")(
+  observer(HomePage)
+);
