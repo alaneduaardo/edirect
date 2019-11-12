@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const UserRouter = require('./users');
+const ProjectRouter = require('./projects');
+const TodoRouter = require('./todos');
+const MainRouter = require('./main');
 
-/* GET app health check */
-router.get('/', (req, res, next) => {
-  res.send({"app":"Edirect Test API", "frontend":"React", "backend":"Express"});
-});
-
-module.exports = router;
+module.exports = {
+  UserRouter,
+  ProjectRouter,
+  TodoRouter,
+  MainRouter
+}
