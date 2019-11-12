@@ -1,15 +1,24 @@
 import constants from '../constants';
 
-module.exports.login = (username, password) => {
-  return fetch(`${constants.API_URL_BASE}/user/login`, {
-        method: 'post',
-        headers: {'Content-Type': constants.API_DEFAULT_CONTENT_TYPE},
-        body: JSON.stringify({ username, password })
-      }).then(res => res.json());
-}
+export default {
+  login: (username, password) => {
+    let params = new URLSearchParams({ username, password }).toString();
 
-module.exports.logout = () => {
-  return fetch(`${constants.API_URL_BASE}/user/logout`, {
-        method: 'get'
-      }).then(res => res.json());
-}
+    return fetch(`${constants.API_URL_BASE}/user/login`, {
+          method: 'POST',
+          headers: {'Content-Type': constants.API_DEFAULT_CONTENT_TYPE},
+          body: params
+        }).then(res => {
+          if(res.status !== 200) throw new Error(res.statusText);
+          res.json()
+        });
+  },
+  logout: () => {
+    return fetch(`${constants.API_URL_BASE}/user/logout`, {
+          method: 'GET'
+        }).then((err, res) => {
+          if(err.status !== 200) throw new Error(res.data.error.message);
+          res.json()
+        });
+  }
+};

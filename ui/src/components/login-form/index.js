@@ -1,50 +1,77 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Button } from "react-bootstrap";
+import { withRouter } from 'react-router-dom'
 import "./login.css";
 
-export default function Login(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+      username: "",
+      password: "",
+      errorMsg: ""
+    }
   }
 
-  function handleSubmit(event) {
+  validateForm() {
+    return this.state.username.length > 0 && this.state.password.length > 0;
+  }
+
+  handleSubmit(event) {
     event.preventDefault();
+    let { username, password } = this.state;
 
-    console.log('viva');
+    this.props.store.login(username, password).then((response) => {
+      this.props.history.push('/projects');
+    })
+    .catch((err) => {
+      console.log(err);
+      this.setState({
+        errorMsg: err.message
+      })
+    })
   }
 
-  return (
-    <div className="Login-Form">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicEmail">
+  render() {
+    return (
+      <div className="Login-Form">
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group controlId="formBasicEmail">
 
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter username"
-            value={email}
-            onChange={e => setEmail(e.target.value)} />
-          <Form.Text className="text-muted">
-            Please fill your credentials to signin
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter username"
+              value={this.state.username}
+              onChange={e => this.setState({ username: e.target.value })} />
+            <Form.Text className="text-muted">
+              Please fill your credentials to signin
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={e => this.setState({ password: e.target.value })} />
+          </Form.Group>
+
+          <Form.Text className="text-muted alert">
+            {this.state.errorMsg}
           </Form.Text>
-        </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)} />
-        </Form.Group>
+          <Button block bsSize="large" variant="secondary" disabled={!this.validateForm()} type="submit">
+            Login
+          </Button>
+        </Form>
+      </div>
+    );
+  }
+};
 
-        <Button block bsSize="large" variant="secondary" disabled={!validateForm()} type="submit">
-          Login
-        </Button>
-      </Form>
-    </div>
-  );
-}
+export default withRouter(Login);
