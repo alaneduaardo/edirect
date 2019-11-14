@@ -6,13 +6,23 @@ class ProjectStore {
   projects = [];
 
   list() {
-    return projectApi.list().then(action(data => {
+    return projectApi.list().then(data => {
       this.projects = data;
-    }));
+    });
+  }
+
+  findOne(projectId) {
+    return projectApi.findOne(projectId);
   }
 
   new(data) {
     return projectApi.new(data).then(() => {
+      this.list();
+    });
+  }
+
+  update(projectId, data) {
+    return projectApi.update(projectId, data).then(() => {
       this.list();
     });
   }
@@ -44,6 +54,13 @@ class ProjectStore {
 
 decorate(ProjectStore, {
   projects: observable,
+  findOne: action,
+  new: action,
+  update: action,
+  delete: action,
+  addTodo: action,
+  checkTodo: action,
+  deleteTodo: action,
   list: action,
 });
 

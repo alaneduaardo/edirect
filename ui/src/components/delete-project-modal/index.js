@@ -14,9 +14,9 @@ class DeleteProject extends React.Component {
   }
 
   handleClick() {
-    let { deleteProjectId } = this.props.modalStore;
+    let { projectId } = this.props.modalStore;
 
-    this.props.projectStore.delete(deleteProjectId).then(() => {
+    this.props.projectStore.delete(projectId).then(() => {
       this.props.modalStore.toggleDeleteProject();
     });
   }

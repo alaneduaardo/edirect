@@ -10,6 +10,15 @@ module.exports = function(ProjectModel) {
     .populate('todos');
   }
 
+  this.findOne = (req, res, next) => {
+    model.findOne({ _id: req.params.id }, (err, data) => {
+      if(err) return next(err);
+
+      res.send(data);
+    })
+    .populate('todos');
+  }
+
   this.new = (req, res, next) => {
     model.create(req.body, (err, data) => {
       if(err) return next({status:400, ...err, requestBody:req.body});

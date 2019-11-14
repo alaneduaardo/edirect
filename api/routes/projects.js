@@ -12,6 +12,9 @@ router.use(Auth.verify);
 /* GET projects listing. */
 router.get('/', Projects.find);
 
+/* GET one project */
+router.get('/:id', Projects.findOne);
+
 /* POST new project */
 router.post('/', Projects.new);
 

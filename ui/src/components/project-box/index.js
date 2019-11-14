@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, ListGroup, Row, Col } from "react-bootstrap";
+import EditProject from '../edit-project';
 import DeleteProject from '../delete-project';
 import DeleteTodo from '../delete-todo';
 import CheckTodo from '../check-todo';
@@ -70,6 +71,7 @@ class ProjectBox extends React.Component {
               {name}
             </Col>
             <Col>
+              <EditProject id={id} />
               <DeleteProject id={id} />
             </Col>
           </Row>

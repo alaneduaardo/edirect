@@ -14,9 +14,9 @@ class DeleteTodo extends React.Component {
   }
 
   handleClick() {
-    let { deleteProjectId, deleteTodoId } = this.props.modalStore;
+    let { projectId, todoId } = this.props.modalStore;
 
-    this.props.projectStore.deleteTodo(deleteProjectId, deleteTodoId).then(() => {
+    this.props.projectStore.deleteTodo(projectId, todoId).then(() => {
       this.props.modalStore.toggleDeleteTodo();
     });
   }
