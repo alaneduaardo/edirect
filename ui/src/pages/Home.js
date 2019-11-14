@@ -3,7 +3,9 @@ import LoginForm from '../components/login-form';
 import { inject, observer } from "mobx-react";
 
 class HomePage extends React.Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+
     let { loggedUser } = this.props.userStore;
 
     if(loggedUser != null && loggedUser.id != null) {

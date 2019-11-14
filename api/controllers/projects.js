@@ -7,12 +7,12 @@ module.exports = function(ProjectModel) {
 
       res.send(data);
     })
-    .populate('Todo');
+    .populate('todos');
   }
 
   this.new = (req, res, next) => {
     model.create(req.body, (err, data) => {
-      if(err) return next({...err,requestBody:req.body});
+      if(err) return next({status:400, ...err, requestBody:req.body});
 
       res.send(data);
     });
@@ -20,7 +20,7 @@ module.exports = function(ProjectModel) {
 
   this.update = (req, res, next) => {
     model.updateOne({ _id: req.params.id }, req.body, (err, data) => {
-      if(err) return next({...err,requestBody:req.body});
+      if(err) return next({status:400, ...err, requestBody:req.body});
 
       res.send(data);
     });
@@ -28,7 +28,7 @@ module.exports = function(ProjectModel) {
 
   this.delete = (req, res, next) => {
     model.deleteOne({ _id: req.params.id }, (err, data) => {
-      if(err) return next({...err,requestBody:req.body});
+      if(err) return next({status:400, ...err, requestBody:req.body});
 
       res.send(data);
     });

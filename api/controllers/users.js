@@ -14,14 +14,13 @@ module.exports = function(UserModel) {
     }
   };
 
-  this.logout = async (req, res) => {
+  this.logout = (req, res) => {
     try {
-        req.user.token = null;
-        await req.user.save();
+        UserModel.logout(req.user._id);
 
         res.send();
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send({error: error.message})
     }
   }
 }

@@ -29,9 +29,10 @@ class LoginForm extends React.Component {
       this.props.history.push('/projects');
     })
     .catch((err) => {
-      console.log(err);
       this.setState({
-        errorMsg: err.message
+        username: "",
+        password: "",
+        errorMsg: err.response.data.error.message
       })
     })
   }
@@ -62,9 +63,9 @@ class LoginForm extends React.Component {
               onChange={e => this.setState({ password: e.target.value })} />
           </Form.Group>
 
-          <Form.Text className="text-muted alert">
+          <Form.Control.Feedback type="invalid">
             {this.state.errorMsg}
-          </Form.Text>
+          </Form.Control.Feedback>
 
           <Button block bssize="large" variant="secondary" disabled={!this.validateForm()} type="submit">
             Login

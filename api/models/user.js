@@ -28,12 +28,16 @@ User.statics.authenticate = async (username, password) => {
     if (!user) {
         throw new Error('Invalid login credentials');
     }
-    
+
     if (!await bcryptjs.compare(password, user.password)) {
         throw new Error('Invalid login credentials');
     }
 
     return user
+}
+
+User.statics.logout = async (_id) => {
+    await UserModel.updateOne({ _id }, { token: null });
 }
 
 User.pre('save', function (next) {

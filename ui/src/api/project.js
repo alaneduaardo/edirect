@@ -1,11 +1,16 @@
 import axios from "axios";
 import constants from '../constants';
+import api from './api-base';
 
 export default {
   list: () => {
-    return axios.get(`${constants.API_URL_BASE}/project`,).then(res => {
-          if(res.status !== 200) throw new Error(res.statusText);
-          return res.data
-        });
+    return api.get('/project').then(res => {
+      return res.data
+    });
   },
+  new: (data) => {
+    return api.post('/project', data).then(res => {
+      return res.data
+    });
+  }
 };

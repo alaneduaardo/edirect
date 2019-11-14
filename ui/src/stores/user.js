@@ -2,25 +2,27 @@ import { decorate, observable, action } from "mobx";
 import userApi from '../api/user';
 
 class UserStore {
-  loggedUser = localStorage.getItem('edirect-loggedUser');
+  loggedUser = JSON.parse(localStorage.getItem('edirect-loggedUser')) || null;
 
   login(username, password) {
     return userApi.login(username, password).then(data => {
       this.loggedUser = data;
-      localStorage.setItem('edirect-loggedUser', this.loggedUser);
+      localStorage.setItem('edirect-loggedUser', JSON.stringify(this.loggedUser));
     });
   }
 
   logout() {
-    return userApi.logout().then(action(() => {
+    return userApi.logout().then(() => {
       this.loggedUser = null;
       localStorage.clear();
-    }));
+    });
   }
 }
 
-export default new UserStore();
-
 decorate(UserStore, {
-  loggedUser: observable
+  loggedUser: observable,
+  login: action,
+  logout: action
 });
+
+export default new UserStore();

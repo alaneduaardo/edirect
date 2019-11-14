@@ -1,23 +1,44 @@
 import React from 'react';
+import { Container, Row, Col } from "react-bootstrap";
 import MainNav from '../components/mainnav';
-import userStore from '../stores/user';
 import ProjectList from '../components/project-list';
+import AddProjectForm from '../components/add-project-form';
 import { inject, observer } from "mobx-react";
 
 class ProjectsPage extends React.Component {
-  componentWillMount() {
-    let { loggedUser } = this.props.userStore;
+  constructor(props) {
+    super(props);
 
-    if(loggedUser == null || loggedUser.id == null) {
-      this.props.history.push('/');
+    let { loggedUser } = props.userStore;
+
+    if(loggedUser === null) {
+      props.history.push('/');
     }
+
+    this.props.projectStore.list();
   }
 
   render() {
+    let { loggedUser } = this.props.userStore;
+    let { projects } = this.props.projectStore;
+
+    if(loggedUser === null) {
+      return null;
+    }
+
     return (
       <div className="Projects">
         <MainNav />
-        <ProjectList list={this.props.projectStore.projects}/>
+        <Container style={{ padding: '20px' }}>
+          <Row>
+            <Col sm={8}>
+              <ProjectList list={projects}/>
+            </Col>
+            <Col sm={4}>
+              <AddProjectForm />
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
