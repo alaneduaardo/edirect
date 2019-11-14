@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquare } from '@fortawesome/free-regular-svg-icons'
+import { faSquare, faCheckSquare } from '@fortawesome/free-regular-svg-icons'
 import { inject, observer } from "mobx-react";
 
 class CheckTodo extends React.Component {
@@ -9,6 +9,10 @@ class CheckTodo extends React.Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
+
+    this.state = {
+      icon: faSquare
+    }
   }
 
   validateForm() {
@@ -26,8 +30,10 @@ class CheckTodo extends React.Component {
   render() {
     return (
       <FontAwesomeIcon
-        icon={faSquare}
+        icon={this.state.icon}
         onClick={this.handleClick}
+        onMouseEnter={() => this.setState({ icon: faCheckSquare })}
+        onMouseLeave={() => this.setState({ icon: faSquare })}
         style={{ marginRight: '5px' }} />
     )
   }
