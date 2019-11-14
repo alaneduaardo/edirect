@@ -9,11 +9,11 @@ module.exports = function() {
         const _id = jwt.verify(token, process.env.JWT_KEY)._id;
         const loggedUser = await UserModel.findOne({ _id, token });
 
+        console.log(loggedUser);
+
         if (!loggedUser) {
             throw new Error('Not authorized to access this resource');
         }
-
-        console.log(loggedUser)
 
         req.user = loggedUser;
         req.token = token;

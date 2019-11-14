@@ -4,9 +4,14 @@ import constants from '../constants';
 const loggedUser = JSON.parse(localStorage.getItem('edirect-loggedUser'));
 const token = loggedUser ? loggedUser.token : null;
 
-const api = axios.create({
+let clientOptions = {
   baseURL: constants.API_URL_BASE,
-  headers: {'Authorization': `Bearer ${token}`}
-});
+}
+
+if(token) {
+  clientOptions.headers = {'Authorization': `Bearer ${token}`};
+}
+
+const api = axios.create(clientOptions);
 
 export default api;

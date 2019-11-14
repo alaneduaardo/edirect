@@ -1,9 +1,4 @@
-import axios from "axios";
-import constants from '../constants';
-
-const api = axios.create({
-  baseURL: constants.API_URL_BASE
-});
+import api from './api-base';
 
 export default {
   login: (username, password) => {

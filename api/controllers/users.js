@@ -1,4 +1,4 @@
-module.exports = function(UserModel) {
+module.exports = function(UserModel, jwt) {
   const model = UserModel;
 
   this.login = async (req, res, next) => {
@@ -16,7 +16,10 @@ module.exports = function(UserModel) {
 
   this.logout = (req, res) => {
     try {
-        UserModel.logout(req.user._id);
+        const token = req.header('Authorization').replace('Bearer ', '')
+        const _id = jwt.verify(token, process.env.JWT_KEY)._id;
+
+        model.logout(_id);
 
         res.send();
     } catch (error) {
