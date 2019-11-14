@@ -4,6 +4,7 @@ import MainNav from '../components/main-nav';
 import ProjectList from '../components/project-list';
 import AddProjectForm from '../components/add-project-form';
 import DeleteProjectModal from '../components/delete-project-modal';
+import DeleteTodoModal from '../components/delete-todo-modal';
 import { inject, observer } from "mobx-react";
 
 class ProjectsPage extends React.Component {
@@ -41,6 +42,7 @@ class ProjectsPage extends React.Component {
           </Row>
         </Container>
         <DeleteProjectModal />
+        <DeleteTodoModal />
       </div>
     );
   }

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { inject, observer } from "mobx-react";
 
-class DeleteProject extends React.Component {
+class DeleteTodo extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,26 +14,26 @@ class DeleteProject extends React.Component {
   }
 
   handleClick() {
-    let { deleteProjectId } = this.props.modalStore;
+    let { deleteProjectId, deleteTodoId } = this.props.modalStore;
 
-    this.props.projectStore.delete(deleteProjectId).then(() => {
-      this.props.modalStore.toggleDeleteProject();
+    this.props.projectStore.deleteTodo(deleteProjectId, deleteTodoId).then(() => {
+      this.props.modalStore.toggleDeleteTodo();
     });
   }
 
   handleClose() {
-    this.props.modalStore.toggleDeleteProject();
+    this.props.modalStore.toggleDeleteTodo();
   }
 
   render() {
-    let { deleteProject } = this.props.modalStore;
+    let { deleteTodo } = this.props.modalStore;
 
     return (
-      <Modal show={deleteProject} onHide={this.handleClose} animation={false}>
+      <Modal show={deleteTodo} onHide={this.handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Removing Project</Modal.Title>
+          <Modal.Title>Removing Todo</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure do want delete this project?</Modal.Body>
+        <Modal.Body>Are you sure do want delete this todo?</Modal.Body>
         <Modal.Footer>
           <Button variant="light" onClick={this.handleClose}>
             Close
@@ -48,5 +48,5 @@ class DeleteProject extends React.Component {
 }
 
 export default inject("projectStore", "modalStore")(
-  observer(DeleteProject)
+  observer(DeleteTodo)
 );

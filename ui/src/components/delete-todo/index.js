@@ -16,7 +16,7 @@ class DeleteTodo extends React.Component {
 
     let { projectId, todoId } = this.props;
 
-    this.props.projectStore.deleteTodo(projectId, todoId);
+    this.props.modalStore.toggleDeleteTodo(projectId, todoId);
   }
 
   render() {
@@ -31,6 +31,6 @@ DeleteTodo.propTypes = {
   todoId: PropTypes.string.isRequired
 }
 
-export default inject("projectStore")(
+export default inject("modalStore")(
   observer(DeleteTodo)
 );
