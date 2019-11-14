@@ -17,6 +17,12 @@ class ProjectStore {
     });
   }
 
+  delete(projectId) {
+    return projectApi.delete(projectId).then(() => {
+      this.list();
+    });
+  }
+
   addTodo(projectId, data) {
     return todoApi.new(projectId, data).then(() => {
       this.list();

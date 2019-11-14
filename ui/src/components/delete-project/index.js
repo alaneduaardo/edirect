@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { inject, observer } from "mobx-react";
 
-class DeleteTodo extends React.Component {
+class DeleteProject extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,9 +14,9 @@ class DeleteTodo extends React.Component {
   handleClick(event) {
     event.preventDefault();
 
-    let { projectId, todoId } = this.props;
+    let { id } = this.props;
 
-    this.props.projectStore.deleteTodo(projectId, todoId);
+    this.props.projectStore.delete(id);
   }
 
   render() {
@@ -26,11 +26,10 @@ class DeleteTodo extends React.Component {
   }
 }
 
-DeleteTodo.propTypes = {
-  projectId: PropTypes.string.isRequired,
-  todoId: PropTypes.string.isRequired
+DeleteProject.propTypes = {
+  projectId: PropTypes.string.isRequired
 }
 
 export default inject("projectStore")(
-  observer(DeleteTodo)
+  observer(DeleteProject)
 );

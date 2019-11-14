@@ -10,5 +10,8 @@ export default {
     return api.post('/project', data).then(res => {
       return res.data
     });
+  },
+  delete: (projectId) => {
+    return api.delete(`/project/${projectId}`);
   }
 };

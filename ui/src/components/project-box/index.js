@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, ListGroup, Row, Col } from "react-bootstrap";
+import DeleteProject from '../delete-project';
 import DeleteTodo from '../delete-todo';
 import CheckTodo from '../check-todo';
 import AddTodoForm from '../add-todo-form';
@@ -63,7 +64,16 @@ class ProjectBox extends React.Component {
 
     return (
       <Card sm={3}>
-        <Card.Header>{name}</Card.Header>
+        <Card.Header>
+          <Row>
+            <Col sm={8}>
+              {name}
+            </Col>
+            <Col>
+              <DeleteProject id={id} />
+            </Col>
+          </Row>
+        </Card.Header>
 
         <Card.Body>
           {todoList}

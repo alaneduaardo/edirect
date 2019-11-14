@@ -15,10 +15,6 @@ class CheckTodo extends React.Component {
     }
   }
 
-  validateForm() {
-    return this.state.todo.length > 0;
-  }
-
   handleClick(event) {
     event.preventDefault();
 

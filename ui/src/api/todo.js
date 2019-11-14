@@ -12,6 +12,6 @@ export default {
     });
   },
   delete: (projectId, todoId) => {
-    return api.delete(`/project/${projectId}/todo/${todoId}`, { done: true });
+    return api.delete(`/project/${projectId}/todo/${todoId}`);
   }
 };
