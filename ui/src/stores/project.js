@@ -22,6 +22,18 @@ class ProjectStore {
       this.list();
     });
   }
+
+  checkTodo(projectId, todoId) {
+    return todoApi.check(projectId, todoId).then(() => {
+      this.list();
+    });
+  }
+
+  deleteTodo(projectId, todoId) {
+    return todoApi.delete(projectId, todoId).then(() => {
+      this.list();
+    });
+  }
 }
 
 decorate(ProjectStore, {

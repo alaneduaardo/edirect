@@ -31,10 +31,10 @@ class ProjectsPage extends React.Component {
         <MainNav />
         <Container style={{ padding: '20px' }}>
           <Row>
-            <Col sm={8}>
+            <Col sm={9}>
               <ProjectList list={projects}/>
             </Col>
-            <Col sm={4}>
+            <Col sm={3}>
               <AddProjectForm />
             </Col>
           </Row>

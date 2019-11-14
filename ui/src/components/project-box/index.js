@@ -1,17 +1,31 @@
 import React from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup, Row, Col } from "react-bootstrap";
+import DeleteTodo from '../delete-todo';
+import CheckTodo from '../check-todo';
 import AddTodoForm from '../add-todo-form';
 
 class ProjectBox extends React.Component {
 
   renderTodoTasks(todos) {
+    let projectId = this.props.id;
+
     return (
       <div>
         <Card.Title>To Do</Card.Title>
         {todos.length > 0 ? (
             <ListGroup variant="flush">
               {todos.map((todo, index) => (
-                <ListGroup.Item key={index}>{todo.name}</ListGroup.Item>
+                <ListGroup.Item key={index}>
+                  <Row>
+                    <Col sm={8}>
+                      {todo.name}
+                    </Col>
+                    <Col>
+                      <CheckTodo projectId={projectId} todoId={todo._id} />
+                      <DeleteTodo projectId={projectId} todoId={todo._id} />
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
               ))}
             </ListGroup>
         )
