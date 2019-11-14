@@ -14,7 +14,8 @@ class ProjectBox extends React.Component {
                 <ListGroup.Item key={index}>{todo.name}</ListGroup.Item>
               ))}
             </ListGroup>
-        ) : 'Hooray! All the tasks are clear.'}
+        )
+        : (<small>{'Hooray! All the tasks are clear.'}</small>)}
       </div>
     );
   }
@@ -29,7 +30,8 @@ class ProjectBox extends React.Component {
               <ListGroup.Item key={index}>{completed.name}</ListGroup.Item>
             ))}
           </ListGroup>
-        ) : 'Still does not have tasks closed yet, let\'go man!'}
+        )
+        : (<small>{'Still does not have tasks closed yet, let\'go man!'}</small>)}
       </div>
     );
   }
