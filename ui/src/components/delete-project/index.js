@@ -16,7 +16,7 @@ class DeleteProject extends React.Component {
 
     let { id } = this.props;
 
-    this.props.projectStore.delete(id);
+    this.props.modalStore.toggleDeleteProject(id);
   }
 
   render() {
@@ -30,6 +30,6 @@ DeleteProject.propTypes = {
   projectId: PropTypes.string.isRequired
 }
 
-export default inject("projectStore")(
+export default inject("modalStore")(
   observer(DeleteProject)
 );
