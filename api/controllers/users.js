@@ -1,26 +1,27 @@
 module.exports = function(UserModel) {
   const model = UserModel;
 
-  this.login = (req, res, next) => {
+  this.login = async (req, res, next) => {
     let { username, password } = req.body;
 
-    model.authenticate(username, password, (err, user) => {
-      if(err) return next(err);
+    try {
+        const user = await model.authenticate(username, password);
+        const token = await user.generateAuthToken();
 
-      req.session.user = user;
-
-      res.send({
-        id: user._id,
-        name: user.name
-      });
-    });
+        res.send({ id: user._id, name: user.name, token });
+    } catch (error) {
+        res.status(401).send({ error: error.message });
+    }
   };
 
-  this.logout = (req, res) => {
-    delete req.session.user;
+  this.logout = async (req, res) => {
+    try {
+        req.user.token = null;
+        await req.user.save();
 
-    res.send({
-      user: typeof req.session.user
-    });
+        res.send();
+    } catch (error) {
+        res.status(500).send(error)
+    }
   }
 }

@@ -3,9 +3,7 @@ module.exports = function(TodoModel, ProjectModel) {
   const projectModel = ProjectModel;
 
   this.new = (req, res, next) => {
-    let todo = new model(req.body);
-
-    todo.save((err, newTodo) => {
+    model.create(req.body, (err, newTodo) => {
       if(err) return next({...err,requestBody:req.body});
 
       req.project.todos.push(newTodo._id);

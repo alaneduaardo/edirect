@@ -3,19 +3,15 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const session = require('express-session');
 const cors = require('cors');
+
+require('dotenv').config();
 
 const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(session({
-  secret: 'edirect secret',
-  resave: false,
-  saveUninitialized: true
-}));
 app.use(cors({
   methods:['GET', 'POST', 'PUT', 'DELETE'],
   origin: ['http://localhost:3000','http://127.0.0.1:3000']

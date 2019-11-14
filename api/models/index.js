@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const UserModel = require('./user');
 const ProjectModel = require('./project');
 const TodoModel = require('./todo');
@@ -5,7 +7,7 @@ const TodoModel = require('./todo');
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  "mongodb://mongodb:27017/edirect",
+  process.env.DB_CONNECTION,
   {useNewUrlParser: true, useUnifiedTopology: true}
 );
 mongoose.connection.on("error", error => {

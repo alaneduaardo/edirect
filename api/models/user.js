@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const uuid = require('node-uuid');
 const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 let Schema = mongoose.Schema;
 
@@ -9,30 +10,30 @@ let User = new Schema({
   name: {type: String, required: [true, 'Name must to be valid']},
   username: {type: String, unique: true, required: [true, 'Username must to be valid']},
   password: {type: String, required: [true, 'Password must to be valid']},
+  token: {type: String }
 });
 
-User.statics.authenticate = function (username, password, callback) {
-  UserModel.findOne({ username })
-    .exec(function (err, user) {
-      if (err) {
-        return callback(err)
-      } else if (!user) {
-        let errNotFound = { status:401, message:'User not found.' };
-        return callback(errNotFound);
-      }
+User.methods.generateAuthToken = async function() {
+    const user = this;
 
-      let result = bcryptjs.compareSync(password, user.password);
+    user.token = jwt.sign({_id: user._id}, process.env.JWT_KEY);
+    await user.save();
 
-      if (result === true) {
-        return callback(null, user);
-      }
+    return user.token;
+}
 
-      let errInvalid = { status:401, message:'User credentials are invalid.' };
-      errInvalid.status = 401;
+User.statics.authenticate = async (username, password) => {
+    const user = await UserModel.findOne({ username });
 
-      return callback(errInvalid);
+    if (!user) {
+        throw new Error('Invalid login credentials');
+    }
+    
+    if (!await bcryptjs.compare(password, user.password)) {
+        throw new Error('Invalid login credentials');
+    }
 
-    });
+    return user
 }
 
 User.pre('save', function (next) {
