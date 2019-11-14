@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, ListGroup, Button } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 import AddTodoForm from '../add-todo-form';
 
 class ProjectBox extends React.Component {
@@ -38,14 +38,12 @@ class ProjectBox extends React.Component {
     let { id, name, todos, done } = this.props;
     let todoList, doneList, emptyText;
 
-    if(todos.length == 0 && done.length == 0) {
+    if(todos.length === 0 && done.length === 0) {
       emptyText = 'The project is clear. Let\'s get started with some tasks :)';
     } else {
       todoList = this.renderTodoTasks(todos);
       doneList = this.renderDoneTasks(done);
     }
-
-    //'The project is clear. Let\'s get started with some tasks :)'
 
     return (
       <Card sm={3}>

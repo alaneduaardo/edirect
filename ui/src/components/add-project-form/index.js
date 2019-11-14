@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { Form, Button, Jumbotron } from "react-bootstrap";
 import { inject, observer } from "mobx-react";
 
@@ -23,8 +22,6 @@ class AddProjectForm extends React.Component {
 
     let { id } = this.props.userStore.loggedUser;
     let { name } = this.state;
-
-    console.log({ name, user: id });
 
     this.props.projectStore.new({ name, user: id }).then(() => {
       this.setState({ name: "" });
