@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import MainNav from '../components/mainnav';
+import MainNav from '../components/main-nav';
 import ProjectList from '../components/project-list';
 import AddProjectForm from '../components/add-project-form';
 import { inject, observer } from "mobx-react";
