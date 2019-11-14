@@ -6,9 +6,10 @@ module.exports = function(UserModel, jwt) {
 
     try {
         const user = await model.authenticate(username, password);
-        const token = await user.generateAuthToken();
 
-        res.send({ id: user._id, name: user.name, token });
+        user.generateAuthToken((token) => {
+          res.send({ id: user._id, name: user.name, token });
+        });
     } catch (error) {
         res.status(401).send({ error: error.message });
     }

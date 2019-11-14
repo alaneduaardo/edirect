@@ -13,13 +13,13 @@ let User = new Schema({
   token: {type: String }
 });
 
-User.methods.generateAuthToken = async function() {
+User.methods.generateAuthToken = async function(callback) {
     const user = this;
 
     user.token = jwt.sign({_id: user._id}, process.env.JWT_KEY);
     await user.save();
 
-    return user.token;
+    callback(user.token);
 }
 
 User.statics.authenticate = async (username, password) => {
